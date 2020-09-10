@@ -1,49 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Text;
-using System.Threading.Tasks;
-
 namespace ngaytrongthang
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.OutputEncoding = Encoding.UTF8;
-            Console.Write("Nhập tháng : ");
-            string Sthang = Console.ReadLine();
-            int th = int.Parse(Sthang);
-            int songay = 0;
-
-            if (th >= 1 && th <= 12)
+            int thang, nam;
+            do
             {
-                switch (th)
-                {
-                    case 1:
-                    case 3:
-                    case 5:
-                    case 7:
-                    case 8:
-                    case 10:
-                    case 12: songay = 31; break;
-                    case 4:
-                    case 6:
-                    case 9:
-                    case 11: songay = 30; break;
-                    case 2: break;
+                Console.OutputEncoding = Encoding.UTF8;
+                Console.WriteLine("Nhập tháng : ");
+                thang = int.Parse(Console.ReadLine());
+                Console.WriteLine("Nhập năm: ");
+                nam = int.Parse(Console.ReadLine());
+            } while (nam < 0 || thang < 1 || thang > 12);
+            Console.WriteLine("Số ngày trong tháng: " + fun(thang, nam));
+        }
+        static bool kt(int nam)
+        {
+            return ((nam % 4 == 0 && nam % 100 != 0) || nam % 400 == 0);
+        }
+        static int fun(int thang, int nam)
+        {
+            switch (thang)
+            {
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                case 12:
+                    return 31;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    return 30;
+                case 2:
+                    if (isCheck(nam))
+                        return 29;
+                    else
+                        return 28;
+                default:
+                    Console.WriteLine("Tháng nhập không hợp lệ"); break;
 
-                }
-                if (th == 2)
-                {
-                    Console.Write("=> Tháng " + th + " có 28 hoặc 29 ngày\n");
-                }
-                else
-                Console.Write("=> Tháng " + th + " có " + songay + " ngày\n");
             }
-            else
-                Console.Write("=> Tháng không hợp lệ!\n");
-            Console.ReadLine();
+            return thang;
         }
     }
 }
